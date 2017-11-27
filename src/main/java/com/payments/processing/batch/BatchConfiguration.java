@@ -72,10 +72,13 @@ public class BatchConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<Transaction, Transaction>chunk(1)
+                .<Transaction, Transaction>chunk(5)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+                .faultTolerant()
+                .retryLimit(2)
+                .retry(RuntimeException.class)
                 .build();
     }
 

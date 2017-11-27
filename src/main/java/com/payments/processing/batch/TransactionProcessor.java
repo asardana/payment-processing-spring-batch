@@ -9,6 +9,7 @@ public class TransactionProcessor implements ItemProcessor<Transaction, Transact
     @Override
     public Transaction process(Transaction item) throws Exception {
 
+        System.out.println("\n" + "Inside Processer ---> " + item.getTransactionId() );
         if ("1001".equalsIgnoreCase(item.getMerchantId())) {
             item.setMerchantName("Amazon");
         } else if ("1002".equalsIgnoreCase(item.getMerchantId())) {
@@ -16,7 +17,11 @@ public class TransactionProcessor implements ItemProcessor<Transaction, Transact
         } else {
             item.setMerchantName("Not Available");
         }
-        System.out.println("Enriched Trasaction Details --> " + item.toString());
+       /* if("9".equalsIgnoreCase(item.getTransactionId())) {
+            System.out.println("Runtime Exception for Item ---> " + item.getTransactionId());
+            throw new RuntimeException();
+        }*/
+        //System.out.println("Enriched Trasaction Details --> " + item.toString());
         return item;
     }
 }
